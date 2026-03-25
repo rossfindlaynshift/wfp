@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
-from app.routers import reference
+from app.routers import reference, census
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,6 +17,7 @@ app.add_middleware(
 )
 
 app.include_router(reference.router, prefix="/api/ref", tags=["Reference Tables"])
+app.include_router(census.router, prefix="/api/census", tags=["Census"])
 
 
 @app.get("/api/health")
